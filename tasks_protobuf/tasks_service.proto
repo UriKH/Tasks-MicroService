@@ -1,0 +1,77 @@
+syntax = "proto3";
+
+option go_package = "github.com/TekClinic/Tasks-MicroService/tasks_protobuf";
+
+package tasks;
+
+service TaskService {
+  rpc GetTask(GetTaskRequest) returns (GetTaskResponse);
+  rpc GetTasksIDs(GetTasksIDsRequest) returns (GetTasksIDsResponse);
+  rpc CreateTask(CreateTaskRequest) returns (CreateTaskResponse);
+  rpc DeleteTask(DeleteTaskRequest) returns (DeleteTaskResponse);
+  rpc UpdateTask(UpdateTaskRequest) returns (UpdateTaskResponse);
+}
+
+message GetTaskRequest {
+  string token = 1;
+  int32 id = 2;
+}
+
+message GetTaskResponse {
+  Task task = 1;
+}
+
+message GetTasksIDsRequest {
+  string token = 1;
+  int32 limit = 2;
+  int32 offset = 3;
+  string search = 4;
+}
+
+message GetTasksIDsResponse {
+  int32 count = 1;
+  repeated int32 results = 2;
+}
+
+message CreateTaskRequest {
+  string token = 1;
+  int32 id = 2;
+  bool active = 3;
+  string title = 4;
+  string description = 5;
+  string expertise = 6;
+  int32 patientId = 7;
+  string createdAt = 8;
+  string deletedAt = 9;
+}
+
+message CreateTaskResponse {
+  int32 id = 1;
+}
+
+message DeleteTaskRequest {
+  string token = 1;
+  int32 id = 2;
+}
+
+message DeleteTaskResponse {}
+
+message UpdateTaskRequest {
+  string token = 1;
+  Task task = 2;
+}
+
+message UpdateTaskResponse {
+  int32 id = 1;
+}
+
+message Task {
+  int32 id = 1;
+  bool active = 2;
+  string title = 3;
+  string description = 4;
+  string expertise = 5;
+  int32 patientId = 6;
+  string createdAt = 7;
+  string deletedAt = 8;
+}
