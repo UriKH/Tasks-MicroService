@@ -5,16 +5,16 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
+	"github.com/go-playground/validator/v10"
 	"net"
 	"time"
 
 	"go.uber.org/zap"
 
-	"github.com/go-playground/validator/v10"
 	sf "github.com/sa-/slicefunk"
 
 	ms "github.com/TekClinic/MicroService-Lib"
-	ppb "github.com/TekClinic/Patients-MicroService/tasks_protobuf"
+	ppb "github.com/TekClinic/Tasks-MicroService/tasks_protobuf"
 	"github.com/uptrace/bun"
 	"github.com/uptrace/bun/dialect/pgdialect"
 	"github.com/uptrace/bun/driver/pgdriver"
@@ -143,7 +143,7 @@ func (server patientsServer) CreatePatient(ctx context.Context,
 		return nil, status.Error(codes.PermissionDenied, permissionDeniedMessage)
 	}
 
-	birthDate, err := time.Parse(birthDateFormat, req.GetBirthDate())
+	birthDate, err := time.Parse(yyyy_mm_dd, req.GetBirthDate())
 	if err != nil {
 		return nil, status.Error(codes.InvalidArgument,
 			fmt.Errorf("failed to parse birth date: %w", err).Error())
@@ -341,7 +341,7 @@ func main() {
 	}
 
 	srv := grpc.NewServer(ms.GetGRPCServerOptions()...)
-	ppb.RegisterPatientsServiceServer(srv, service)
+	ppb.RegisterTaskServiceServer(srv, service)
 
 	zap.L().Info("Server listening on :" + service.GetPort())
 	if err = srv.Serve(listen); err != nil {

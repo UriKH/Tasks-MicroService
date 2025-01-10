@@ -1,4 +1,4 @@
-module github.com/TekClinic/Patients-MicroService/server
+module github.com/TekClinic/Tasks-MicroService/server
 
 go 1.22.0
 
@@ -6,7 +6,7 @@ toolchain go1.22.2
 
 require (
 	github.com/TekClinic/MicroService-Lib v0.1.3
-	github.com/TekClinic/Patients-MicroService/patients_protobuf v0.100.0-integrated
+	github.com/TekClinic/Tasks-MicroService/tasks_protobuf v0.100.0-integrated
 	github.com/go-playground/validator/v10 v10.22.0
 	github.com/sa-/slicefunk v0.1.4
 	github.com/uptrace/bun v1.2.1
@@ -41,4 +41,4 @@ require (
 	mellium.im/sasl v0.3.1 // indirect
 )
 
-replace github.com/TekClinic/Patients-MicroService/patients_protobuf => ./../patients_protobuf
+replace github.com/TekClinic/Tasks-MicroService/tasks_protobuf => ./../tasks_protobuf
